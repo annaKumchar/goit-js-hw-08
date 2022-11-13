@@ -7,14 +7,19 @@ const formMessegeEl = document.querySelector('textarea');
 formEl.addEventListener('input', throttle(onFormFillingSet, 500));
 formEl.addEventListener('submit', onFormSubmit);
 
+const FORM_KEY = 'feedback-form-state';
 const formInputEl = {
   email: '',
   message: '',
 };
 function onFormFillingSet(event) {
   const { name, value } = event.target;
-  formInputEl[name] = value;
-  localStorage.setItem('feedback-form-state', JSON.stringify(formInputEl));
+
+  let savedDate = JSON.parse(localStorage.getItem(FORM_KEY)) ?? {};
+
+  savedDate = { ...savedDate, [name]: value };
+
+  localStorage.setItem('feedback-form-state', JSON.stringify(savedDate));
 }
 
 function onFormSubmit(event) {
