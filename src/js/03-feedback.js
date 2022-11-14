@@ -25,6 +25,7 @@ function onFormSubmit(event) {
   for (const [name, value] of formData.entries()) {
     finalData[name] = value;
   }
+  localStorage.removeItem(FORM_KEY);
   event.currentTarget.reset();
   console.log(finalData);
 }
